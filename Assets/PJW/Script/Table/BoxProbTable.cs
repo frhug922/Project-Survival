@@ -27,12 +27,10 @@ public class BoxProbTable : TableBase
             yield return www.SendWebRequest();
             if (www.result != UnityWebRequest.Result.Success)
             {
-                Debug.LogError($"[BoxProbTable] Load Error: {www.error}");
                 yield break;
             }
 
-            var lines = www.downloadHandler.text
-                .Split(new[] { "\r\n", "\n" }, System.StringSplitOptions.RemoveEmptyEntries);
+            var lines = www.downloadHandler.text.Split(new[] { "\r\n", "\n" }, System.StringSplitOptions.RemoveEmptyEntries);
 
             TBoxProb.Clear();
             for (int i = 1; i < lines.Length; i++)
@@ -40,7 +38,6 @@ public class BoxProbTable : TableBase
                 var fields = CsvParser.ParseLine(lines[i]);
                 if (fields.Count < 4)
                 {
-                    Debug.LogWarning($"[BoxProbTable] line {i+1} 필드 부족: {lines[i]}");
                     continue;
                 }
 
@@ -52,8 +49,6 @@ public class BoxProbTable : TableBase
                     BoxType3Prob = fields[3]
                 });
             }
-
-            Debug.Log($"[BoxProbTable] Loaded {TBoxProb.Count} entries.");
         }
     }
 }

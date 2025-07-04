@@ -27,7 +27,6 @@ using UnityEngine.Networking;
             yield return www.SendWebRequest();
             if (www.result != UnityWebRequest.Result.Success)
             {
-                Debug.LogError($"[AssemblyContentTable] Load Error: {www.error}");
                 yield break;
             }
 
@@ -40,7 +39,6 @@ using UnityEngine.Networking;
                 var fields = CsvParser.ParseLine(lines[i]);
                 if (fields.Count < 4)
                 {
-                    Debug.LogWarning($"[AssemblyContentTable] Invalid line at {i + 1}: {lines[i]}");
                     continue;
                 }
 
@@ -52,8 +50,6 @@ using UnityEngine.Networking;
                     ProdEng  = fields[3]
                 });
             }
-
-            Debug.Log($"[AssemblyContentTable] Loaded {Contents.Count} entries.");
         }
     }
 }

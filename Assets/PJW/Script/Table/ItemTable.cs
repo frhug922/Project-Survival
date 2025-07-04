@@ -36,12 +36,10 @@ public class ItemTable : TableBase
 
             if (www.result != UnityWebRequest.Result.Success)
             {
-                Debug.LogError($"[ItemTable] Load Error: {www.error}");
                 yield break;
             }
 
-            var lines = www.downloadHandler.text
-                .Split(new[] { "\r\n", "\n" }, System.StringSplitOptions.RemoveEmptyEntries);
+            var lines = www.downloadHandler.text.Split(new[] { "\r\n", "\n" }, System.StringSplitOptions.RemoveEmptyEntries);
 
             TItem.Clear();
             for (int i = 1; i < lines.Length; i++)
@@ -49,7 +47,6 @@ public class ItemTable : TableBase
                 var fields = CsvParser.ParseLine(lines[i]);
                 if (fields.Count < 11)
                 {
-                    Debug.LogWarning($"[ItemTable] line {i+1} 필드 부족: {lines[i]}");
                     continue;
                 }
 
@@ -68,8 +65,6 @@ public class ItemTable : TableBase
                     PrefabPath         = fields[10]
                 });
             }
-
-            Debug.Log($"[ItemTable] Loaded {TItem.Count} items.");
         }
     }
 }
