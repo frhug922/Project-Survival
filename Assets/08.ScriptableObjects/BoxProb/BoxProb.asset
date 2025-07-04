@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5451c3bc0541c6c40a5a5f73847dd3e9, type: 3}
+  m_Name: BoxProb
+  m_EditorClassIdentifier: 
+  _boxProbs:
+  - DayNum: 1
+    BoxType1Prob: 0.84999996
+    BoxType2Prob: 0.14
+    BoxType3Prob: 0.01
+  - DayNum: 2
+    BoxType1Prob: 0.82
+    BoxType2Prob: 0.16
+    BoxType3Prob: 0.02
+  - DayNum: 3
+    BoxType1Prob: 0.79999995
+    BoxType2Prob: 0.17
+    BoxType3Prob: 0.03
+  - DayNum: 4
+    BoxType1Prob: 0.77
+    BoxType2Prob: 0.17999999
+    BoxType3Prob: 0.049999997
+  - DayNum: 5
+    BoxType1Prob: 0.75
+    BoxType2Prob: 0.19
+    BoxType3Prob: 0.06
+  - DayNum: 6
+    BoxType1Prob: 0.71999997
+    BoxType2Prob: 0.19999999
+    BoxType3Prob: 0.08
+  - DayNum: 7
+    BoxType1Prob: 0.7
+    BoxType2Prob: 0.21
+    BoxType3Prob: 0.089999996
+  - DayNum: 8
+    BoxType1Prob: 0.68
+    BoxType2Prob: 0.22
+    BoxType3Prob: 0.099999994
+  - DayNum: 9
+    BoxType1Prob: 0.65
+    BoxType2Prob: 0.22999999
+    BoxType3Prob: 0.12
+  - DayNum: 10
+    BoxType1Prob: 0.63
+    BoxType2Prob: 0.24
+    BoxType3Prob: 0.13
+  - DayNum: 11
+    BoxType1Prob: 0.59999996
+    BoxType2Prob: 0.25
+    BoxType3Prob: 0.14999999
+  - DayNum: 12
+    BoxType1Prob: 0.57
+    BoxType2Prob: 0.26999998
+    BoxType3Prob: 0.16
+  - DayNum: 13
+    BoxType1Prob: 0.55
+    BoxType2Prob: 0.28
+    BoxType3Prob: 0.17
+  - DayNum: 14
+    BoxType1Prob: 0.52
+    BoxType2Prob: 0.29
+    BoxType3Prob: 0.19
+  - DayNum: 15
+    BoxType1Prob: 0.5
+    BoxType2Prob: 0.29999998
+    BoxType3Prob: 0.19999999

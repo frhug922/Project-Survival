@@ -38,6 +38,6 @@ public class BoxSlotUnit : ItemSlotUnit
     /// </summary>
     public void OnClick()
     {
-        _data.SendItemToInventory(_index);
+        _data.GetCollection(_index);
     }
 }

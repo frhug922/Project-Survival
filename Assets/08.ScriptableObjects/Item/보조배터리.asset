@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16df72ffc81be2f4f86baa453a28ce81, type: 3}
+  m_Name: "\uBCF4\uC870\uBC30\uD130\uB9AC"
+  m_EditorClassIdentifier: 
+  ItemId: 1007
+  Name: "\uBCF4\uC870\uBC30\uD130\uB9AC"
+  Type: 0
+  Description: "\uC798 \uBCF4\uC874\uB41C \uBCF4\uC870 \uBC30\uD130\uB9AC \uC785\uB2C8\uB2E4."
+  Energy: 40
+  Weight: 1
+  MaxStackSize: 1
+  IsDecomposable: 1
+  ItemStats: 0
+  Icon: {fileID: 21300000, guid: 69b9e92e9c7630a4181fa6e912f53959, type: 3}
+  Prefab: {fileID: 8000420106059038843, guid: 8b2dbed73cd4f8a4fa5ee20ca9846b15, type: 3}

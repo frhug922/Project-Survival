@@ -3,6 +3,7 @@ using UnityEngine;
 public class BoxController : UIBase
 {
     [SerializeField] private BoxSlotUnit[] _slots;
+    [SerializeField] private BoxCollectionUnit[] _collection;
     [SerializeField] private BoxSystem _data;
 
     private void Start()
@@ -22,6 +23,14 @@ public class BoxController : UIBase
     {
         _data.OnBoxSlotUpdated -= UpdateUISlot;
         InventoryManager.Instance.CloseBox();
+    }
+
+    private void Update()
+    {
+        for(int i = 0; i < _collection.Length; i++)
+        {
+            _collection[i].UpdateUI(i);
+        }
     }
 
     private void UpdateUISlot()

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum CollectionType { Diary, CollectionItem }
 
-[CreateAssetMenu(fileName = "New Collection", menuName = "Collection/Create New Collection")]
+[CreateAssetMenu(fileName = "New Collection", menuName = "Assets/Create New Collection")]
 
 public class CollectionSO : ScriptableObject
 {

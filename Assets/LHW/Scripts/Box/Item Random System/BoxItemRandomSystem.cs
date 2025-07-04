@@ -24,7 +24,7 @@ public class BoxItemRandomSystem : MonoBehaviour
     [SerializeField] CollectionSO[] _itemB_Journal;
 
     [Header("Food")]
-    [SerializeField] ItemSO[] _itemC_Food;
+    [SerializeField] ItemSO _itemC_Food;
 
     [Header("Collectible - List")]
     [SerializeField] CollectionSO[] _itemD_Collection;
@@ -32,7 +32,10 @@ public class BoxItemRandomSystem : MonoBehaviour
     private WeightedRandom<ItemSO> _weightedRandomA = new WeightedRandom<ItemSO>();
     private WeightedRandom<CollectionSO> _weightedRandomD = new WeightedRandom<CollectionSO>();
     
-    private Stack<CollectionSO> _journalStack = new Stack<CollectionSO>();
+    private Queue<CollectionSO> _journalQueue = new Queue<CollectionSO>();
+
+    Dictionary<int, float> _itemBProbableDic = new Dictionary<int, float>();
+    Dictionary<int, float> _itemCProbableDic = new Dictionary<int, float>();
 
     private void Awake()
     {
@@ -69,8 +72,8 @@ public class BoxItemRandomSystem : MonoBehaviour
     private void ItemAddToBox()
     {
         ItemASelect();
-        ItemBSelect();
-        ItemCSelect();
+        //ItemBSelect();
+        //ItemCSelect();
         ItemDSelect();
     }
 
@@ -117,14 +120,12 @@ public class BoxItemRandomSystem : MonoBehaviour
 
     private void ItemBSelect()
     {
-        if(_journalStack.Count == 0) return;
+        if(_journalQueue.Count == 0) return;
 
-        // if(GameManager.Instance.DayNightManager.CurrentDay == key)
-        //{
-            // float randomNum = Random.Range(0.0f, value);
-            // if randonNum > value return;
-            // 콜렉션을 추가하는 함수(_journalStack.Pop());
-        //}
+        float value = _itemBProbableDic[GameManager.Instance.DayNightManager.CurrentDay];
+        float randomNum = Random.Range(0.0f, value);
+        if (randomNum > value) return;
+        _data.AddCollection(_journalQueue.Dequeue(), 0);
     }
 
     /// <summary>
@@ -134,26 +135,41 @@ public class BoxItemRandomSystem : MonoBehaviour
     {
         for(int i = 0; i < _itemB_Journal.Length; i++)
         {
-            _journalStack.Push(_itemB_Journal[i]);
+            _journalQueue.Enqueue(_itemB_Journal[i]);
         }
 
         // 현재 일지 아이템이 없고 확률 테이블을 만들 방법에 대해 고민하고 있어
         // 의사 코드로 먼저 적습니다.
 
         // 일차 = key, 확률 = value로 된 dictionary를 생성하고, 데이터 테이블의 정보를 SO로 만들어놓는다.
-        Dictionary<int, float> keyValuePairs = new Dictionary<int, float>();
 
-        // 딕셔너리 정보를 전부 저장
+        // 딕셔너리 정보를 전부 저장(임시로 값을 전부 입력함)
+
+        _itemBProbableDic[1] = 1;
+        _itemBProbableDic[2] = 0.9f;
+        _itemBProbableDic[3] = 0.8f;
+        _itemBProbableDic[4] = 0.7f;
+        _itemBProbableDic[5] = 0.7f;
+        _itemBProbableDic[6] = 0.6f;
+        _itemBProbableDic[7] = 0.5f;
+        _itemBProbableDic[8] = 0.5f;
+        _itemBProbableDic[9] = 0.4f;
+        _itemBProbableDic[10] = 0.3f;
+        _itemBProbableDic[11] = 0.3f;
+        _itemBProbableDic[12] = 0.3f;
+        _itemBProbableDic[13] = 0.2f;
+        _itemBProbableDic[14] = 0.2f;
+        _itemBProbableDic[15] = 0.2f;
     }
 
     private void ItemCSelect()
     {
-        // if(GameManager.Instance.DayNightManager.CurrentDay == key)
-        //{
-        // float randomNum = Random.Range(0.0f, value);
-        // if randonNum > value return;
-        // _data.AddItemToBoxSlot(_itemC_Food);
-        //}
+        if(_itemCProbableDic.Count == 0) return;
+
+        float value = _itemCProbableDic[GameManager.Instance.DayNightManager.CurrentDay];
+        float randomNum = Random.Range(0.0f, value);
+        if(randomNum > value) return;
+        _data.AddItemToBoxSlot(_itemC_Food);
     }
 
     /// <summary>
@@ -165,9 +181,25 @@ public class BoxItemRandomSystem : MonoBehaviour
         // 의사 코드로 먼저 적습니다.
 
         // 일차 = key, 확률 = value로 된 dictionary를 생성하고, 데이터 테이블의 정보를 SO로 만들어놓는다.
-        Dictionary<int, float> keyValuePairs = new Dictionary<int, float>();
+        
 
-        // 딕셔너리 정보를 전부 저장
+        // 딕셔너리 정보를 전부 저장 - 임시로 직접 입력해봄
+        _itemCProbableDic[1] = 1;
+        _itemCProbableDic[2] = 0.5f;
+        _itemCProbableDic[3] = 0.1f;
+        _itemCProbableDic[4] = 0.2f;
+        _itemCProbableDic[5] = 0.2f;
+        _itemCProbableDic[6] = 0.2f;
+        _itemCProbableDic[7] = 0.1f;
+        _itemCProbableDic[8] = 0.1f;
+        _itemCProbableDic[9] = 0.1f;
+        _itemCProbableDic[10] = 0.2f;
+        _itemCProbableDic[11] = 0.2f;
+        _itemCProbableDic[12] = 0.2f;
+        _itemCProbableDic[13] = 0.1f;
+        _itemCProbableDic[14] = 0.1f;
+        _itemCProbableDic[15] = 0.1f;
+
     }
 
     /// <summary>
@@ -181,8 +213,8 @@ public class BoxItemRandomSystem : MonoBehaviour
 
         if (randomNum > 0.7f) return;
 
-        // need to make collection item slot in box inventory.
-        //_data.AddItemToBoxSlot(_weightedRandomD.GetRandomItem());
+
+        _data.AddCollection(_weightedRandomD.GetRandomItem(), 1);
     }
 
     /// <summary>

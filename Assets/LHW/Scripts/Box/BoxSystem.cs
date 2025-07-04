@@ -6,10 +6,12 @@ public class BoxSystem : MonoBehaviour
     [SerializeField] private ItemSO[] _boxItem;
     [SerializeField] private int[] _boxStack;
 
-    // TODO - Collection Icon
+    [SerializeField] private CollectionSO[] _boxCollection;
 
     public ItemSO[] BoxItem => _boxItem;
     public int[] BoxStack => _boxStack;
+
+    public CollectionSO[] BoxCollection => _boxCollection;
 
     public event Action OnBoxSlotUpdated;
 
@@ -32,6 +34,10 @@ public class BoxSystem : MonoBehaviour
             _boxItem[i] = null;
             _boxStack[i] = 0;
         }
+        for (int i = 0; i < _boxCollection.Length; i++)
+        {
+            _boxCollection[i] = null;
+        }
     }
 
     /// <summary>
@@ -43,6 +49,10 @@ public class BoxSystem : MonoBehaviour
         for(int i = 0; i < _boxItem.Length; i++)
         {
             InventoryManager.Instance.GetItemFromBox(i);
+        }
+        for (int i = 0; i < _boxCollection.Length; i++)
+        {
+            GetCollection(i);
         }
     }
 
@@ -104,6 +114,20 @@ public class BoxSystem : MonoBehaviour
             _boxItem[index] = null;
             _boxStack[index] = 0;
             OnBoxSlotUpdated?.Invoke();
+        }
+    }
+
+    public void AddCollection(CollectionSO collection, int index)
+    {
+        _boxCollection[index] = collection;
+    }
+
+    public void GetCollection(int index)
+    {
+        if(_boxCollection[index] != null)
+        {
+            ItemCollectionManager.Instance.TryCollectItem(_boxCollection[index]);
+            _boxCollection[index] = null;
         }
     }
 

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 852933356110906679}
   - component: {fileID: 9221554994531276265}
   m_Layer: 7
-  m_Name: dynamite
+  m_Name: Dynamite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
