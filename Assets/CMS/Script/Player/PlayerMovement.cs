@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D _rb;
     private Vector2 _moveInput;
     private Animator _anim;
+    private SpriteRenderer _playerRenderer;
 
     private bool _canRun = true;
     private bool _isRunning = false;
@@ -25,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _playerStats = GetComponent<PlayerStats>();
         _anim = GetComponent<Animator>();
+        _playerRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
@@ -39,9 +41,18 @@ public class PlayerMovement : MonoBehaviour
             _lastMoveY = _moveInput.y;
         }
 
-        _anim.SetFloat("Horizontal", _moveInput.x);
+        _anim.SetFloat("Horizontal", 1f);
         _anim.SetFloat("Vertical", _moveInput.y);
         _anim.SetFloat("Speed", _moveInput.sqrMagnitude);
+    }
+
+    private void LateUpdate()
+    {
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 dir = mouseWorldPos - transform.position;
+
+        if (_playerRenderer != null)
+            _playerRenderer.flipX = dir.x < 0f;
     }
 
     private void FixedUpdate()

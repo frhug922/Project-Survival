@@ -31,6 +31,8 @@ public class PlayerLook : MonoBehaviour
     private void FlipToMouse()
     {
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mouseWorldPos.z = 0f; 
+
         Vector3 direction = mouseWorldPos - transform.position;
 
         _playerRenderer.flipX = direction.x < 0f;

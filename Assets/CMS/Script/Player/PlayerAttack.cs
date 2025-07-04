@@ -4,32 +4,51 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    [SerializeField] private float _attackDamage = 10f;
+    [SerializeField] private GameObject _dynamitePrefab;
 
-    private void OnTriggerEnter2D(Collider2D other)
+
+    private void Update()
     {
-        MonsterStats monster = other.GetComponent<MonsterStats>();
-        if (monster != null)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            monster.TakeDamage(_attackDamage);
-            StartCoroutine(HitReaction(monster));
+            ThrowDynamite(_dynamitePrefab);
         }
     }
 
-    private IEnumerator HitReaction(MonsterStats monster)
+    public void ThrowDynamite(GameObject prefab)
     {
-        SpriteRenderer renderer = monster != null ? monster.GetComponent<SpriteRenderer>() : null;
-        if (renderer == null) yield break;
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePos.z = 0f;
 
-        for (int i = 0; i < 3; i++)
+        Vector2 dir = (mousePos - transform.position).normalized;
+
+        Animator animator = GetComponent<Animator>();
+        if (Mathf.Abs(dir.x) > Mathf.Abs(dir.y))
         {
-            if (renderer == null) yield break; // 파괴된 경우 즉시 종료
-            renderer.enabled = false;
-            yield return new WaitForSeconds(0.1f);
-
-            if (renderer == null) yield break;
-            renderer.enabled = true;
-            yield return new WaitForSeconds(0.1f);
+            animator.SetFloat("ThrowX", dir.x > 0 ? 1 : -1);
+            animator.SetFloat("ThrowY", 0);
         }
+        else
+        {
+            animator.SetFloat("ThrowX", 0);
+            animator.SetFloat("ThrowY", dir.y > 0 ? 1 : -1);
+        }
+
+        animator.SetBool("IsThrowing", true);
+
+        GameObject bomb = Instantiate(prefab, transform.position, Quaternion.identity);
+        Rigidbody2D rb = bomb.GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.AddForce(dir * 10f, ForceMode2D.Impulse);
+        }
+
+        StartCoroutine(ResetThrowFlag());
+    }
+    private IEnumerator ResetThrowFlag()
+    {
+        yield return new WaitForSeconds(0.2f);
+        GetComponent<Animator>().SetBool("IsThrowing", false);
     }
 }
+

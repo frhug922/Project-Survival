@@ -262,7 +262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _testDamage: 10
-  _damageKey: 32
+  _damageKey: 0
 --- !u!114 &352179210251216639
 MonoBehaviour:
   m_ObjectHideFlags: 0
